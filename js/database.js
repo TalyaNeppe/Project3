@@ -59,6 +59,15 @@ class DataBase {
         return false;
     }
 
+    getUserIdByUsername(username) {
+        for (let user of this.users) {
+            if (user.username === username) {
+                return user.id;
+            }
+        }
+        return false;
+    }
+
     getContactsIndex(userId) {
         for (let i in this.contacts) {
             if (this.contacts[i].userid === userId) {

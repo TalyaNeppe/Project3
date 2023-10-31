@@ -17,9 +17,15 @@ btn.addEventListener('click', (event) => {
         return;
     }
 
-    // if (check){ //server checks if the user exists
-    //     localStorage.setItem('currentUser', username); //to fix
-    // }
+    if (check) { //server checks if the user exists
+        //server will send a request to get the user id by username
+        let userId = db.getUserIdByUsername(username);
+        if (userId !== false) {
+            localStorage.setItem('currentUser', userId); //to fix
+        }
+
+    }
+
     // else if (!doesUserExist(username, password)) {
     //     alert('Incorrect password/username');
     //     return;
