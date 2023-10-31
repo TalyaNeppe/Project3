@@ -1,6 +1,6 @@
 const database = db; // getting the database
 
-let check=true;
+let check = true;
 
 /* checks if the password is 6 chars long */
 const isPasswordInRightLength = (password) => {
@@ -16,10 +16,16 @@ btn.addEventListener('click', (event) => {
         alert('Your password should be 6 charecters long');
         return;
     }
-    
-    // if (check){ //server checks if the user exists
-    //     localStorage.setItem('currentUser', username); //to fix
-    // }
+
+    if (check) { //server checks if the user exists
+        //server will send a request to get the user id by username
+        let userId = db.getUserIdByUsername(username);
+        if (userId !== false) {
+            localStorage.setItem('currentUser', userId); //to fix
+        }
+
+    }
+
     // else if (!doesUserExist(username, password)) {
     //     alert('Incorrect password/username');
     //     return;
