@@ -1,5 +1,5 @@
-const login=document.getElementById('login-template');
-const app=document.getElementById('app-template');
+const login = document.getElementById('login-template');
+const app = document.getElementById('app-template');
 const page = document.getElementById('page');
 
 let currentPage;
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function switchPage(target) {
-    let temp = document.getElementById((target+'-template'));
+    let temp = document.getElementById((target + '-template'));
     let content = temp.content;
     let children = page.children;
     let length = children.length;
@@ -23,21 +23,21 @@ function switchPage(target) {
     page.appendChild(content.cloneNode(true));
     if (target === 'app') {
         let script = document.createElement('script');
-        script.src="./js/app.js";
-        script.id='app-script';
+        script.src = "./js/app.js";
+        script.id = 'app-script';
         document.body.appendChild(script);
-        let login=document.getElementById('login-script');
-        if (login){
+        let login = document.getElementById('login-script');
+        if (login) {
             login.remove();
         }
     }
-    else{
+    else {
         let script = document.createElement('script');
-        script.src="./js/login.js";
-        script.id='login-script';
+        script.src = "./js/login.js";
+        script.id = 'login-script';
         document.body.appendChild(script);
-        let app=document.getElementById('app-script');
-        if (app){
+        let app = document.getElementById('app-script');
+        if (app) {
             app.remove();
         }
     }

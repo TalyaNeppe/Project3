@@ -1,8 +1,8 @@
-class DataBase{
+class DataBase {
     constructor() {
         this.countUsers = 1;
         this.users = [new User('talya', 'talya123', '087873682', this.countUsers)];
-        this.contacts = [new Contacts(this.countUsers)];
+        this.contacts = [new ContactsList(this.countUsers)];
     };
 
     addUser(username, password, phoneNumber) {
@@ -26,8 +26,8 @@ class DataBase{
     getContact(userid, contactid) {
         let userC = this.getUserContacts(userid);
         if (userC) {
-            for(let contact of userC){
-                if (contact.id === contactid){
+            for (let contact of userC) {
+                if (contact.id === contactid) {
                     return contact;
                 }
             }
@@ -37,13 +37,11 @@ class DataBase{
     }
 
     addContact(userid, cName, cNumber) {
-        let user=this.getUser(userid);
+        let user = this.getUser(userid);
         let userC = this.getUserContacts(userid);
-        console.log(userC);
-        if(userC) {
+        if (userC) {
             user.countContacts++;
-            userC.push({id: user.countContacts, cName: cName, cNumber: cNumber});
-            console.log(userC);
+            userC.push(new Contact(user.countContacts, cName, cNumber));
             this.contacts[this.getContactsIndex(userid)].contactList = userC;
             this.updateContacts();
             return this.getContact(userid, this.countContacts);
@@ -53,8 +51,8 @@ class DataBase{
     }
 
     getUser(userid) {
-        for(let user of this.users){
-            if (user.id === userid){
+        for (let user of this.users) {
+            if (user.id === userid) {
                 return user;
             }
         }
@@ -62,8 +60,8 @@ class DataBase{
     }
 
     getContactsIndex(userId) {
-        for(let i in this.contacts) {
-            if (this.contacts[i].userid === userId){
+        for (let i in this.contacts) {
+            if (this.contacts[i].userid === userId) {
                 return i;
             }
         }
