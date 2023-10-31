@@ -34,28 +34,16 @@ class DataBase{
         }
     }
 
-    addContact(userid, cName, cNumber) {
-        let userC = this.getUserContacts(userid);
-        if(userC) {
-            this.countContacts++;
-            userC.push({id: this.countContacts, cName: cName, cNumber: cNumber});
-            console.log(userC)
-            this.contacts[this.getContactsIndex(userid)].contactList = userC;
-            this.updateContacts();
-            return this.getContact(userid, this.countContacts);
-        } else {
-            return false;
+    getUser(userid) {
+        for (let user of this.users) {
         }
     }
 
-    getContactsIndex(userId) {
-        for(let i in this.contacts) {
-            if (this.contacts[i].userid === userId){
-                return i;
-            }
-        }
-        return false;
+    addcontact(userid) {
+
     }
+
+
 
     updateUsers() {
         localStorage.setItem('users', JSON.stringify(this.users));
@@ -66,6 +54,3 @@ class DataBase{
 }
 
 const db = new DataBase();
-db.addContact(1, 'fdggsdf', '034958304');
-// console.log(db.getContactsIndex(1));
-console.log()

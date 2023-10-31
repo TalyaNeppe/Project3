@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function switchPage(target) {
-    debugger;
     let temp = document.getElementById((target+'-template'));
     let content = temp.content;
     let children = page.children;
