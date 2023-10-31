@@ -1,0 +1,12 @@
+input, button, legend{
+    padding: 5px;
+    margin: 5px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+h1{
+    text-align: center;
+}
