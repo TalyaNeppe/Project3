@@ -1,82 +1,108 @@
 class DataBase{
-    constructor() {
-        this.countUsers = 1;
-        this.users = [new User('talya', 'talya123', '087873682', this.countUsers)];
-        this.contacts = [new Contacts(this.countUsers)];
-    };
 
-    addUser(username, password, phoneNumber) {
-        this.countUsers++;
-        this.users.push(new User(username, password, phoneNumber, this.countUsers));
-        this.updateUsers();
+    getUsers() {
+        return JSON.parse(localStorage.getItem('users')) || [];
+    }
+    
+    getContacts() {
+        return JSON.parse(localStorage.getItem('contacts')) || [];
     }
 
-    getUserContacts(userid) {
-        debugger;
-        let userC;
-        for (let contact of this.contacts) {
-            console.log(contact);
-            if (contact.userid === userid) {
-                userC = contact.contactList;
+    addUser(username, password, phone) {
+        const users = this.getUsers();
+        let count = localStorage.getItem('countUsers') || 1;
+        users.push({'id': count, 'name': username, 'password': password, 'phone': phone, 'countContacts': 1});
+        
+        const contacts = this.getContacts();
+        contacts.push({'userid': count, 'contactList': []})
+        
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('contacts', JSON.stringify(contacts));
+        localStorage.setItem('countUsers', ++count);
+        
+        return users[users.length-1];
+    }
+    
+    addContact(userid, name, phone) {
+        // debugger;
+        const contacts = this.getContacts();
+        const users = this.getUsers();
+        let user;
+        // find user with userid
+        userid = JSON.stringify(userid);
+        for (let usr of users) {
+            if (usr.id === userid) {
+                user = usr;
             }
         }
-        return userC || false; // if user not found, will return false
-    }
-
-    getContact(userid, contactid) {
-        let userC = this.getUserContacts(userid);
-        if (userC) {
-            for(let contact of userC){
-                if (contact.id === contactid){
-                    return contact;
+            for (let contactL of contacts){
+                if (contactL.userid === userid && user) {
+                    contactL.contactList.push({'id': user.countContacts, 'name': name, 'phone': phone});
+                    //update user.countContacts in db
+                    user.countContacts++;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    //update contacts in db
+                    localStorage.setItem('contacts', JSON.stringify(contacts));
+                    return contactL.contactList[contactL.contactList.length-1];
                 }
             }
-        } else {
             return false;
-        }
     }
 
-    addContact(userid, cName, cNumber) {
-        let user=this.getUser(userid);
-        let userC = this.getUserContacts(userid);
-        console.log(userC);
-        if(userC) {
-            user.countContacts++;
-            userC.push({id: user.countContacts, cName: cName, cNumber: cNumber});
-            console.log(userC);
-            this.contacts[this.getContactsIndex(userid)].contactList = userC;
-            this.updateContacts();
-            return this.getContact(userid, this.countContacts);
-        } else {
-            return false;
+    removeUser(userid) {
+        const users = this.getUsers();
+        const contacts = this.getContacts();
+        userid = JSON.stringify(userid);
+        if (users.length === contacts.length) {
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].id === userid) {
+                    //remove from users
+                    users.splice(i, 1);
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                if (contacts[i].userid === userid) {
+                    //remove from contacts
+                    contacts.splice(i, 1);
+                    localStorage.setItem('contacts', JSON.stringify(contacts));
+                }
+            }
+            // return true;
         }
+        // return false;
     }
-
-    getUser(userid) {
-        for(let user of this.users){
-            if (user.id === userid){
-                return user;
+    
+    removeContact(userid, contactid) {
+        // debugger;
+        const contacts = this.getContacts();
+        const users = this.getUsers();
+        let contactL;
+        userid = JSON.stringify(userid);
+        for (let contact of contacts) {
+            if (contact.userid === userid) {
+                contactL = contact;
+                for (let i in contactL.contactList) {
+                    if (contactL.contactList[i].id === contactid) {
+                        //remove contact from contacts
+                        contactL.contactList.splice(i, 1);
+                        localStorage.setItem('contacts', JSON.stringify(contacts));
+                        return true;
+                    }
+                }
             }
         }
         return false;
     }
-
-    getContactsIndex(userId) {
-        for(let i in this.contacts) {
-            if (this.contacts[i].userid === userId){
-                return i;
-            }
-        }
-        return false;
+    
+    refreshStorage() {
+        localStorage.setItem('users', '[]');
+        localStorage.setItem('contacts', '[]');
+        localStorage.setItem('countUsers', 1);
     }
-
-    updateUsers() {
-        localStorage.setItem('users', JSON.stringify(this.users));
-    }
-    updateContacts() {
-        localStorage.setItem('contacts', JSON.stringify(this.contacts));
-    }
-}
+ }
 
 const db = new DataBase();
-db.addContact(1, 'fdggsdf', '034958304');
+// db.refreshStorage();
+// console.log(db.addUser('Talya', 'lskdflka', '394085945'))
+// console.log(db.addContact(1, 'Opal', '9340530'));
+// console.log(db.removeContact(1, 1));
+// db.removeUser(1);
