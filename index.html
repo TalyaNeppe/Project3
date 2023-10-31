@@ -3,10 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contacts</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <template id="login-template">
+        <fieldset>
+            <legend>Login</legend>
+            <input type="text" id="login-username" placeholder="username"><br>
+            <input type="password" id="login-password" placeholder="password"><br>
+            <button id="login-btn">Send</button><br>
+        </fieldset>
+    </template>
+    <template id="app-template">
+        <button id="logout-btn">Logout</button>
+        <h1 id="app-heading">My Contacts</h1> 
+        <!-- to change to **username** Contacts-->
+        <ul id="contacts-list"></ul>
+    </template>
+
+    <div id="page"></div>
+
+    <!-- scripts -->
     <script src="./js/database.js"></script>
+    <script src="./js/spa.js"></script>
 </body>
 </html>
