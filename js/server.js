@@ -52,12 +52,13 @@ class Server {
             params.push(request.body);
         }
         return {
-            func: func,
+            func: func.name,
             params: params
         };
     }
 
     buildResponse(obj) {
+        debugger;
         console.log('did buildResponse');
         const func = obj.func;
         const params = obj.params;
@@ -66,13 +67,13 @@ class Server {
         if (obj.func) {
             switch(params.length) {
                 case 0:
-                    answer = func();
+                    answer = db[func]();
                     break;
                 case 1: 
-                    answer = func(params[0]);
+                    answer = db[func](params[0]);
                     break;
                 case 2: 
-                    answer =func(params[0], params[1]);
+                    answer = db[func](params[0], params[1]);
                     break;
                 default:
                     console.log('There are too many paramaters!');

@@ -10,7 +10,7 @@ class DataBase {
 
     getUserContacts(userid) {
         const contacts = this.getContacts();
-        userid = JSON.stringify(userid);
+        userid = String(userid);
         for (let contactL of contacts) {
             if (contactL.userid === userid) {
                 return contactL.contactList;
@@ -21,7 +21,7 @@ class DataBase {
 
     getUser(userid) {
         const users = this.getUsers();
-        userid = JSON.stringify(userid);
+        userid = String(userid);
         for (let user of users) {
             if (user.id === userid) {
                 return user;
@@ -31,11 +31,12 @@ class DataBase {
     }
 
     addUser(obj) {
+        // debugger;
         const username = obj.username;
         const password = obj.password;
         const phone = obj.phone;
         const users = this.getUsers();
-        if (!username || !password || !phone) {return;}
+        if (!username || !password || !phone) { return; }
         let count = localStorage.getItem('countUsers') || 1;
         users.push({ 'id': count, 'name': username, 'password': password, 'phone': phone, 'countContacts': 1 });
 
@@ -52,12 +53,12 @@ class DataBase {
     addUserContact(userid, obj) {
         const name = obj.name;
         const phone = obj.phone;
-        if (!name || ! phone) {return}
+        if (!name || !phone) { return }
         const contacts = this.getContacts();
         const users = this.getUsers();
         let user;
         // find user with userid
-        userid = JSON.stringify(userid);
+        userid = String(userid);
         for (let usr of users) {
             if (usr.id === userid) {
                 user = usr;
@@ -80,39 +81,49 @@ class DataBase {
     deleteUser(userid) {
         const users = this.getUsers();
         const contacts = this.getContacts();
-        userid = JSON.stringify(userid);
+        userid = String(userid);
+        let delUser = false;
+        let delContact = false;
+        let retObj;
         if (users.length === contacts.length) {
             for (let i = 0; i < users.length; i++) {
                 if (users[i].id === userid) {
                     //remove from users
+                    retObj = users[i];
                     users.splice(i, 1);
                     localStorage.setItem('users', JSON.stringify(users));
+                    delUser = true;
                 }
                 if (contacts[i].userid === userid) {
                     //remove from contacts
                     contacts.splice(i, 1);
                     localStorage.setItem('contacts', JSON.stringify(contacts));
+                    delContact = true;
                 }
             }
-            // return true;
+            if (delContact && delUser) {
+                return retObj;
+            }
         }
-        // return false;
+        return retObj;
     }
 
     deleteUserContact(userid, contactid) {
+        debugger;
         const contacts = this.getContacts();
         const users = this.getUsers();
         let contactL;
-        userid = JSON.stringify(userid);
+        userid = String(userid);
         for (let contact of contacts) {
             if (contact.userid === userid) {
                 contactL = contact;
                 for (let i in contactL.contactList) {
-                    if (contactL.contactList[i].id === contactid) {
+                    if (contactL.contactList[i].id == contactid) {
                         //remove contact from contacts
+                        const retObj = contactL.contactList[i];
                         contactL.contactList.splice(i, 1);
                         localStorage.setItem('contacts', JSON.stringify(contacts));
-                        return true;
+                        return retObj;
                     }
                 }
             }
@@ -128,6 +139,7 @@ class DataBase {
 }
 
 const db = new DataBase();
+// db.addUser({username: 'user', password: 'skdhfkdsf', phone: '0928383833'});
 // db.refreshStorage();
 // console.log(db.addUser('Talya', 'lskdflka', '394085945'))
 // console.log(db.addContact(1, 'Opal', '9340530'));
