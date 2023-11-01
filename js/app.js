@@ -1,6 +1,31 @@
 const heading = document.getElementById('app-heading');
-const user = localStorage.getItem('currentUser');
-heading.textContent = user + ' Contacts';
+const userId = localStorage.getItem('currentUser');
+
+let user;
+
+const requestUser = new FXMLHttpRequest();
+requestUser.open('GET', `/api/users/${userId}`);
+requestUser.onload = function () {
+    user = JSON.parse(this.requestText);
+    heading.textContent = user.username + "'s Contacts";
+    const list = document.getElementById('contacts-list');
+    const requestContacts = new FXMLHttpRequest();
+    console.log(`/api/users/${userId}/contacts`)
+    requestContacts.open('GET', `/api/users/${userId}/contacts`);
+    requestContacts.onload = function () {
+        console.log(this.requestText);
+        const contacts=JSON.parse(this.requestText);
+        contacts.forEach(contact => {
+            let li=document.createElement('li');
+            li.style.borderBottom='1px solid black';
+            li.innerHTML='<label>Name: '+contact.name+'</label><br><label>Phone number: '+contact.phone+'</label><br><br>'
+            list.appendChild(li);
+        });
+        
+    }
+    requestContacts.send();
+}
+requestUser.send();
 
 const logoutBtn = document.getElementById('logout-btn');
 logoutBtn.addEventListener('click', () => {

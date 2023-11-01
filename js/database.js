@@ -9,7 +9,7 @@ class DataBase {
     }
 
     getUserContacts(userid) {
-        const contacts = this.getContacts();
+        const contacts = this.getContacts().sort();
         userid = String(userid);
         for (let contactL of contacts) {
             if (contactL.userid === userid) {
