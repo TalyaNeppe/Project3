@@ -131,6 +131,15 @@ class DataBase {
         return false;
     }
 
+    doesUserExist(username, password){
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].username === username && this.users[i].password === password) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     refreshStorage() {
         localStorage.setItem('users', '[]');
         localStorage.setItem('contacts', '[]');
@@ -139,11 +148,3 @@ class DataBase {
 }
 
 const db = new DataBase();
-// db.addUser({username: 'user', password: 'skdhfkdsf', phone: '0928383833'});
-// db.refreshStorage();
-// console.log(db.addUser('Talya', 'lskdflka', '394085945'))
-// console.log(db.addContact(1, 'Opal', '9340530'));
-// console.log(db.removeContact(1, 1));
-// db.removeUser(1);
-// console.log(db.getUserContacts(1));
-// console.log(db.getUser(1));

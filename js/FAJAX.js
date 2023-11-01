@@ -20,7 +20,5 @@ class FXMLHttpRequest{
         network.addRequest(this);
     }
 
-    onload() {
-
-    }
+    onload() {}
 }
