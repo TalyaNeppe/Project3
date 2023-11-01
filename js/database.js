@@ -60,12 +60,12 @@ class DataBase {
         // find user with userid
         userid = String(userid);
         for (let usr of users) {
-            if (usr.id === userid) {
+            if (usr.id == userid) {
                 user = usr;
             }
         }
         for (let contactL of contacts) {
-            if (contactL.userid === userid && user) {
+            if (contactL.userid == userid && user) {
                 contactL.contactList.push({ 'id': user.countContacts, 'name': name, 'phone': phone });
                 //update user.countContacts in db
                 user.countContacts++;
@@ -109,13 +109,12 @@ class DataBase {
     }
 
     deleteUserContact(userid, contactid) {
-        debugger;
         const contacts = this.getContacts();
         const users = this.getUsers();
         let contactL;
         userid = String(userid);
         for (let contact of contacts) {
-            if (contact.userid === userid) {
+            if (contact.userid == userid) {
                 contactL = contact;
                 for (let i in contactL.contactList) {
                     if (contactL.contactList[i].id == contactid) {
@@ -131,6 +130,42 @@ class DataBase {
         return false;
     }
 
+    updateUser(userid, obj) {
+        const users = this.getUsers();
+        const name = obj.name;
+        const password = obj.password;
+        const phone = obj.phone;
+        if (!name || !password || !phone) {return false;}
+        for (let i in users) {
+            if (users[i].id == userid) {
+                // const replace = {id: userid, 'name': name, 'password': password, 'phone': phone};
+                users[i] = new User(name, password, phone, userid);
+                localStorage.setItem('users', JSON.stringify(users));
+                return users[i];
+            }
+        }
+        return false;
+    }
+
+    updateUserContact(userid, contactid, obj) {
+        const contacts = this.getContacts();
+        const name = obj.name;
+        const phone = obj.phone;
+        if (!name || !phone) {return false;}
+        for(let contacL of contacts) {
+            if (contacL.userid == userid) {
+                const list = contacL.contactList;
+                for (let i of list) {
+                    if (list[i].id == contactid) {
+                        list[i] = new Contact(contactid, name, phone);
+                        localStorage.setItem('contacts', JSON.stringify(contacts));
+                        return list[i];
+                    }
+                }
+            }
+        }
+    }
+
     refreshStorage() {
         localStorage.setItem('users', '[]');
         localStorage.setItem('contacts', '[]');
@@ -142,7 +177,7 @@ const db = new DataBase();
 // db.addUser({username: 'user', password: 'skdhfkdsf', phone: '0928383833'});
 // db.refreshStorage();
 // console.log(db.addUser('Talya', 'lskdflka', '394085945'))
-// console.log(db.addContact(1, 'Opal', '9340530'));
+// console.log(db.addUserContact(4, {name: 'lskdfj', }));
 // console.log(db.removeContact(1, 1));
 // db.removeUser(1);
 // console.log(db.getUserContacts(1));

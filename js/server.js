@@ -58,7 +58,6 @@ class Server {
     }
 
     buildResponse(obj) {
-        debugger;
         console.log('did buildResponse');
         const func = obj.func;
         const params = obj.params;
