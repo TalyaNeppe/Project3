@@ -13,14 +13,13 @@ const network = new Network();
 document.addEventListener('DOMContentLoaded', () => {
     setInterval(()=> {
         if(network.requests.length > 0) {
-            const request = network.requests;
+            const request = network.requests[0];
             // check if request is to server or client
             if (request.status) {
                 // send request to client
-
             } else {
                 // send request to server
-
+                server.addRequest(request);
             }
 
             // remove request

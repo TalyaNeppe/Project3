@@ -1,14 +1,14 @@
-class DataBase{
+class DataBase {
 
     getUsers() {
         return JSON.parse(localStorage.getItem('users')) || [];
     }
-    
+
     getContacts() {
         return JSON.parse(localStorage.getItem('contacts')) || [];
     }
 
-    getUerContacts(userid) {
+    getUserContacts(userid) {
         const contacts = this.getContacts();
         userid = JSON.stringify(userid);
         for (let contactL of contacts) {
@@ -30,23 +30,29 @@ class DataBase{
         return false;
     }
 
-    addUser(username, password, phone) {
+    addUser(obj) {
+        const username = obj.username;
+        const password = obj.password;
+        const phone = obj.phone;
         const users = this.getUsers();
+        if (!username || !password || !phone) {return;}
         let count = localStorage.getItem('countUsers') || 1;
-        users.push({'id': count, 'name': username, 'password': password, 'phone': phone, 'countContacts': 1});
-        
+        users.push({ 'id': count, 'name': username, 'password': password, 'phone': phone, 'countContacts': 1 });
+
         const contacts = this.getContacts();
-        contacts.push({'userid': count, 'contactList': []})
-        
+        contacts.push({ 'userid': count, 'contactList': [] })
+
         localStorage.setItem('users', JSON.stringify(users));
         localStorage.setItem('contacts', JSON.stringify(contacts));
         localStorage.setItem('countUsers', ++count);
-        
-        return users[users.length-1];
+
+        return users[users.length - 1];
     }
-    
-    addContact(userid, name, phone) {
-        // debugger;
+
+    addUserContact(userid, obj) {
+        const name = obj.name;
+        const phone = obj.phone;
+        if (!name || ! phone) {return}
         const contacts = this.getContacts();
         const users = this.getUsers();
         let user;
@@ -57,21 +63,21 @@ class DataBase{
                 user = usr;
             }
         }
-            for (let contactL of contacts){
-                if (contactL.userid === userid && user) {
-                    contactL.contactList.push({'id': user.countContacts, 'name': name, 'phone': phone});
-                    //update user.countContacts in db
-                    user.countContacts++;
-                    localStorage.setItem('users', JSON.stringify(users));
-                    //update contacts in db
-                    localStorage.setItem('contacts', JSON.stringify(contacts));
-                    return contactL.contactList[contactL.contactList.length-1];
-                }
+        for (let contactL of contacts) {
+            if (contactL.userid === userid && user) {
+                contactL.contactList.push({ 'id': user.countContacts, 'name': name, 'phone': phone });
+                //update user.countContacts in db
+                user.countContacts++;
+                localStorage.setItem('users', JSON.stringify(users));
+                //update contacts in db
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+                return contactL.contactList[contactL.contactList.length - 1];
             }
-            return false;
+        }
+        return false;
     }
 
-    removeUser(userid) {
+    deleteUser(userid) {
         const users = this.getUsers();
         const contacts = this.getContacts();
         userid = JSON.stringify(userid);
@@ -92,9 +98,8 @@ class DataBase{
         }
         // return false;
     }
-    
-    removeContact(userid, contactid) {
-        // debugger;
+
+    deleteUserContact(userid, contactid) {
         const contacts = this.getContacts();
         const users = this.getUsers();
         let contactL;
@@ -114,13 +119,13 @@ class DataBase{
         }
         return false;
     }
-    
+
     refreshStorage() {
         localStorage.setItem('users', '[]');
         localStorage.setItem('contacts', '[]');
         localStorage.setItem('countUsers', 1);
     }
- }
+}
 
 const db = new DataBase();
 // db.refreshStorage();
@@ -128,5 +133,5 @@ const db = new DataBase();
 // console.log(db.addContact(1, 'Opal', '9340530'));
 // console.log(db.removeContact(1, 1));
 // db.removeUser(1);
-// console.log(db.getUerContacts(1));
+// console.log(db.getUserContacts(1));
 // console.log(db.getUser(1));
