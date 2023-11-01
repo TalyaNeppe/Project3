@@ -1,8 +1,9 @@
 
 /* checks if the password is 6 chars long */
 let isPasswordRightLength = (password) => {
-    return password.length === 6;
+    return password.length ===6;
 }
+
 
 const btn = document.getElementById('login-btn'); //getting the button
 btn.addEventListener('click', (event) => {
@@ -25,12 +26,5 @@ btn.addEventListener('click', (event) => {
             alert('Incorrect password/username');
         }
     };
-    check.send()
-});
-
-const signup = document.getElementById('signup-btn');
-signup.addEventListener('click', (event) => {
-    event.preventDefault();
-    switchPage('signup');
-    console.log('signup')
+    check.send();
 });
