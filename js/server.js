@@ -9,10 +9,12 @@ class Server {
 
     addRequest(request) {
         this.requests.push(request);
+        console.log('did server addRequest')
     }
 
     /* getting the function name */
     findFunction() {
+        console.log('did findFunction')
         const request = this.getCurrentRequest();
         if (!request) { return; }
         let name = '';
@@ -56,8 +58,10 @@ class Server {
     }
 
     buildResponse(obj) {
+        console.log('did buildResponse');
         const func = obj.func;
         const params = obj.params;
+        const request = this.getCurrentRequest();
         let answer;
         if (obj.func) {
             switch(params.length) {
@@ -75,13 +79,21 @@ class Server {
                     break;
             }
             if (answer) {
-                network.addRequest({'status': 200, 'requestText': JSON.stringify(answer)})
+                request.status = 200;
+                request.requestText = JSON.stringify(answer);
+                // network.addRequest({'status': 200, 'requestText': JSON.stringify(answer)})
             } else {
-                network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
+                request.status = 404;
+                request.requestText = 'User or contact was not found';
+                // network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
             }
         } else {
-            network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
+            request.status = 404;
+            request.requestText = 'User or contact was not found';
+            // network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
         }
+        
+        request.send();
 
         //remove request
         server.requests.splice(0, 1);
@@ -92,6 +104,10 @@ const server = new Server();
 
 document.addEventListener('DOMContentLoaded', () => {
     setInterval(()=> {
-        server.buildResponse(server.findFunction());
+        if (server.requests.length > 0) {
+            console.log('there is a request in server')
+            server.buildResponse(server.findFunction());
+        }
+        // console.log('did server')
     }, 1000);
 })
