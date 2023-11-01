@@ -17,7 +17,8 @@ class Server {
         console.log('did findFunction')
         const request = this.getCurrentRequest();
         if (!request) { return; }
-        const urlArray = request.url.split('/');
+        console.log(request.url)
+        const urlArray = (request.url).split('/');
         let name = '';
         const type = request.type;
         switch (type) {
@@ -45,7 +46,7 @@ class Server {
         let params = [];
         if (isNaN((parseInt(urlArray[urlArray.length - 1]))) && type === 'GET') {
             name += 's';
-            if (urlArray[urlArray.length - 1][0] === '?') {
+            if (urlArray[urlArray.length - 1][0] == '?') {
                 const q = urlArray[urlArray.length - 1];
                 const questionsArr = q.split('?');
                 questionsArr.splice(0, 1);
@@ -60,14 +61,15 @@ class Server {
                         params.push(word);
                     }
                 })
-            } else {
-                return;
+                return {
+                    func: func.name,
+                    params: params
+                };
             }
-        }  else {
-            params = urlArray.filter(item => !isNaN((parseInt(item))));
         }
         let func = db[name];
         if (!func) { return; }
+        params = urlArray.filter(item => !isNaN((parseInt(item))));
         if (request.body) {
             params.push(request.body);
         }
@@ -105,16 +107,13 @@ class Server {
             if (answer) {
                 request.status = 200;
                 request.requestText = JSON.stringify(answer);
-                // network.addRequest({'status': 200, 'requestText': JSON.stringify(answer)})
             } else {
                 request.status = 404;
                 request.requestText = 'User or contact was not found';
-                // network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
             }
         } else {
             request.status = 404;
             request.requestText = 'User or contact was not found';
-            // network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
         }
 
         request.send();
