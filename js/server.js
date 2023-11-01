@@ -65,7 +65,7 @@ class Server {
         const request = this.getCurrentRequest();
         let answer;
         if (obj.func) {
-            switch(params.length) {
+            switch (params.length) {
                 case 0:
                     answer = db[func]();
                     break;
