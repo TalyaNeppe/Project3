@@ -78,6 +78,7 @@ class Server {
     }
 
     buildResponse(obj) {
+        debugger;
         console.log('did buildResponse');
         const func = obj.func;
         const params = obj.params;
@@ -93,6 +94,9 @@ class Server {
                     break;
                 case 2:
                     answer = db[func](params[0], params[1]);
+                    break;
+                case 3: 
+                    answer = db[func](params[0], params[1], params[2]);
                     break;
                 default:
                     console.log('There are too many paramaters!');

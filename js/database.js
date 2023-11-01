@@ -19,6 +19,17 @@ class DataBase {
         return false;
     }
 
+    getUserContact(userid, contactid) {
+        userid = String(userid);
+        const contacts = this.getUserContacts(userid);
+        for (let contact of contacts) {
+            if (contact.id == contactid) {
+                return contact;
+            }
+        }
+        return false;
+    }
+
     getUser(userid) {
         const users = this.getUsers();
         userid = String(userid);
