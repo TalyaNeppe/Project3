@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const req = request;
                 setTimeout(() => {
                     req.onload();
-                }, 3000)
+                }, 1000)
             } else {
                 // send request to server
                 console.log('there is no status in request')
