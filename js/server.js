@@ -60,27 +60,27 @@ class Server {
         const params = obj.params;
         let answer;
         if (obj.func) {
-            switch(params.length) {
+            switch (params.length) {
                 case 0:
                     answer = func();
                     break;
-                case 1: 
+                case 1:
                     answer = func(params[0]);
                     break;
-                case 2: 
-                    answer =func(params[0], params[1]);
+                case 2:
+                    answer = func(params[0], params[1]);
                     break;
                 default:
                     console.log('There are too many paramaters!');
                     break;
             }
             if (answer) {
-                network.addRequest({'status': 200, 'requestText': JSON.stringify(answer)})
+                network.addRequest({ 'status': 200, 'requestText': JSON.stringify(answer) })
             } else {
-                network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
+                network.addRequest({ 'status': 404, 'requestText': 'User or contact was not found' })
             }
         } else {
-            network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
+            network.addRequest({ 'status': 404, 'requestText': 'User or contact was not found' })
         }
 
         //remove request
@@ -91,7 +91,7 @@ class Server {
 const server = new Server();
 
 document.addEventListener('DOMContentLoaded', () => {
-    setInterval(()=> {
+    setInterval(() => {
         server.buildResponse(server.findFunction());
     }, 1000);
 })
