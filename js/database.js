@@ -30,6 +30,16 @@ class DataBase {
         return false;
     }
 
+    getUsersUsernamePassword(username, password) {
+        const users = this.getUsers();
+        for (let user of users) {
+            if (user.username === username && user.password === password) {
+                return user.id
+            }
+        }
+        return false;
+    }
+
     addUser(obj) {
         const username = obj.username;
         const password = obj.password;
@@ -124,15 +134,6 @@ class DataBase {
                         return retObj;
                     }
                 }
-            }
-        }
-        return false;
-    }
-
-    doesUserExist(username, password) {
-        for (let i = 0; i < this.users.length; i++) {
-            if (this.users[i].username === username && this.users[i].password === password) {
-                return true;
             }
         }
         return false;

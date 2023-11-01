@@ -17,6 +17,7 @@ class Server {
         console.log('did findFunction')
         const request = this.getCurrentRequest();
         if (!request) { return; }
+        const urlArray = request.url.split('/');
         let name = '';
         const type = request.type;
         switch (type) {
@@ -35,19 +36,38 @@ class Server {
             default:
                 return false;
         }
-        const urlArray = request.url.split('/');
         if (urlArray.includes('users')) {
             name += 'User';
         }
         if (urlArray.includes('contacts')) {
             name += 'Contact';
         }
+        let params = [];
         if (isNaN((parseInt(urlArray[urlArray.length - 1]))) && type === 'GET') {
             name += 's';
+            if (urlArray[urlArray.length - 1][0] === '?') {
+                const q = urlArray[urlArray.length - 1];
+                const questionsArr = q.split('?');
+                questionsArr.splice(0, 1);
+                let qArr = [];
+                questionsArr.forEach(q => {
+                    qArr.push(...(q.split('=')));
+                });
+                qArr.forEach((word, index) => {
+                    if (index % 2 === 0) {
+                        name += word;
+                    } else {
+                        params.push(word);
+                    }
+                })
+            } else {
+                return;
+            }
+        }  else {
+            params = urlArray.filter(item => !isNaN((parseInt(item))));
         }
         let func = db[name];
         if (!func) { return; }
-        const params = urlArray.filter(item => !isNaN((parseInt(item))));
         if (request.body) {
             params.push(request.body);
         }
@@ -68,10 +88,10 @@ class Server {
                 case 0:
                     answer = db[func]();
                     break;
-                case 1: 
+                case 1:
                     answer = db[func](params[0]);
                     break;
-                case 2: 
+                case 2:
                     answer = db[func](params[0], params[1]);
                     break;
                 default:
@@ -92,7 +112,7 @@ class Server {
             request.requestText = 'User or contact was not found';
             // network.addRequest({'status': 404, 'requestText': 'User or contact was not found'})
         }
-        
+
         request.send();
 
         //remove request
@@ -103,8 +123,9 @@ class Server {
 const server = new Server();
 
 document.addEventListener('DOMContentLoaded', () => {
-    setInterval(()=> {
+    setInterval(() => {
         if (server.requests.length > 0) {
+            // debugger;
             console.log('there is a request in server')
             server.buildResponse(server.findFunction());
         }

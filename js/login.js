@@ -17,14 +17,18 @@ btn.addEventListener('click', (event) => {
         return;
     }
 
-    if (check) { //server checks if the user exists
-        //server will send a request to get the user id by username
-        let userId = db.getUserIdByUsername(username);
-        if (userId !== false) {
-            localStorage.setItem('currentUser', userId); //to fix
+    const check = new FXMLHttpRequest();
+    check.open('GET', `/api/users/?Username=${username}?Password=${password}`);
+    check.onload = function () {
+        const id = JSON.parse(check.requestText);
+        if (id !== NaN) {
+            localStorage.setItem('currentUser', JSON.stringify(id));
+            switchPage('app');
+        } else {
+            alert('Incorrect password/username');
         }
-
-    }
+    };
+    check.send()
 
     // else if (!doesUserExist(username, password)) {
     //     alert('Incorrect password/username');

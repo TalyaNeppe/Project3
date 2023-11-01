@@ -14,6 +14,7 @@ const network = new Network();
 document.addEventListener('DOMContentLoaded', () => {
     setInterval(()=> {
         if(network.requests.length > 0) {
+            // debugger;
             console.log('found request in network')
             const request = network.requests[0];
             // check if request is to server or client
