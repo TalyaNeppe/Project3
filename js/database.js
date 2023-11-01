@@ -31,7 +31,6 @@ class DataBase {
     }
 
     addUser(obj) {
-        // debugger;
         const username = obj.username;
         const password = obj.password;
         const phone = obj.phone;

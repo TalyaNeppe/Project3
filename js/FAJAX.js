@@ -20,5 +20,7 @@ class FXMLHttpRequest{
         network.addRequest(this);
     }
 
-    onload() {}
+    onload() {
+        console.log("You did not define an 'onload' function");
+    }
 }
