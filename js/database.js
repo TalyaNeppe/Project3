@@ -130,7 +130,7 @@ class DataBase {
         return false;
     }
 
-    doesUserExist(username, password){
+    doesUserExist(username, password) {
         for (let i = 0; i < this.users.length; i++) {
             if (this.users[i].username === username && this.users[i].password === password) {
                 return true;
@@ -144,10 +144,9 @@ class DataBase {
         const name = obj.name;
         const password = obj.password;
         const phone = obj.phone;
-        if (!name || !password || !phone) {return false;}
+        if (!name || !password || !phone) { return false; }
         for (let i in users) {
             if (users[i].id == userid) {
-                // const replace = {id: userid, 'name': name, 'password': password, 'phone': phone};
                 users[i] = new User(name, password, phone, userid);
                 localStorage.setItem('users', JSON.stringify(users));
                 return users[i];
@@ -157,14 +156,15 @@ class DataBase {
     }
 
     updateUserContact(userid, contactid, obj) {
+        debugger;
         const contacts = this.getContacts();
         const name = obj.name;
         const phone = obj.phone;
-        if (!name || !phone) {return false;}
-        for(let contacL of contacts) {
+        if (!name || !phone) { return false; }
+        for (let contacL of contacts) {
             if (contacL.userid == userid) {
                 const list = contacL.contactList;
-                for (let i of list) {
+                for (let i in list) {
                     if (list[i].id == contactid) {
                         list[i] = new Contact(contactid, name, phone);
                         localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -173,6 +173,7 @@ class DataBase {
                 }
             }
         }
+        return false;
     }
 
     refreshStorage() {
