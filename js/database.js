@@ -8,6 +8,28 @@ class DataBase{
         return JSON.parse(localStorage.getItem('contacts')) || [];
     }
 
+    getUerContacts(userid) {
+        const contacts = this.getContacts();
+        userid = JSON.stringify(userid);
+        for (let contactL of contacts) {
+            if (contactL.userid === userid) {
+                return contactL.contactList;
+            }
+        }
+        return false;
+    }
+
+    getUser(userid) {
+        const users = this.getUsers();
+        userid = JSON.stringify(userid);
+        for (let user of users) {
+            if (user.id === userid) {
+                return user;
+            }
+        }
+        return false;
+    }
+
     addUser(username, password, phone) {
         const users = this.getUsers();
         let count = localStorage.getItem('countUsers') || 1;
@@ -106,3 +128,5 @@ const db = new DataBase();
 // console.log(db.addContact(1, 'Opal', '9340530'));
 // console.log(db.removeContact(1, 1));
 // db.removeUser(1);
+// console.log(db.getUerContacts(1));
+// console.log(db.getUser(1));
