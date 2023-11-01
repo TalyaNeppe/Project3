@@ -35,3 +35,23 @@ logoutBtn.addEventListener('click', () => {
 
 const contactList = document.getElementById('contacts-list');
 
+const search = document.getElementById('search');
+const searchBtn = document.getElementById('search-btn');
+searchBtn.addEventListener('click', () => {
+    const searchResults = new FXMLHttpRequest();
+    searchResults.open("GET", `/api/users/contacts/?Start=${search.value}`)
+    searchResults.onload = function() {
+        if (this.requestText) {
+            const contacts=JSON.parse(this.requestText);
+            contacts.forEach(contact => {
+                let li=document.createElement('li');
+                li.style.borderBottom='1px solid black';
+                li.innerHTML='<label>Name: '+contact.name+'</label><br><label>Phone number: '+contact.phone+'</label><br><br>'
+                list.appendChild(li);
+            });
+        } else {
+            console.log('contacts not found');
+        }
+    };
+    searchResults.send();
+});
