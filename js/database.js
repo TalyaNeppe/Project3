@@ -50,9 +50,10 @@ class DataBase {
     }
 
     addUserContact(userid, obj) {
+        debugger;
         const name = obj.name;
         const phone = obj.phone;
-        if (!name || !phone) { return }
+        if (!name || !phone) { return; }
         const contacts = this.getContacts();
         const users = this.getUsers();
         let user;
@@ -64,7 +65,7 @@ class DataBase {
             }
         }
         for (let contactL of contacts) {
-            if (contactL.userid === userid && user) {
+            if (contactL.userid == userid && user) {
                 contactL.contactList.push(new Contact(user.countContacts, name, phone));
                 //update user.countContacts in db
                 user.countContacts++;
