@@ -1,19 +1,23 @@
 class FXMLHttpRequest{
     constructor() {
-        this.status = 404;
-        this.request = {};
+        this.status = 0;
+        this.requestText = '';
     }
 
     open(type, url, body) {
-        body? 
-        this.request = {'type': type,'url': url,'body': body} 
-        : 
-        this.request = {'type': type,'url': url}
-
+        this.type = type;
+        this.url = url;
+        if (body) {
+            this.body = body;
+        }
+        // body? 
+        // this.request = {'type': type,'url': url,'body': body} 
+        // : 
+        // this.request = {'type': type,'url': url}
     }
 
     send() {
-        network.addRequest(this.request);
+        network.addRequest(this);
     }
 
     onload() {
