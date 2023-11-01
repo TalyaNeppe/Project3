@@ -8,7 +8,7 @@ class DataBase{
         return JSON.parse(localStorage.getItem('contacts')) || [];
     }
 
-    getUerContacts(userid) {
+    getUserContacts(userid) {
         const contacts = this.getContacts();
         userid = JSON.stringify(userid);
         for (let contactL of contacts) {

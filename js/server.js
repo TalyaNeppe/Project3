@@ -9,40 +9,46 @@ class Server {
 
     /* getting the function name */
     findFunction() {
-        debugger;
         const request = this.getCurrentRequest();
-        let str = '';
+        if (!request) { return; }
+        let name = '';
         const type = request.type;
         switch (type) {
             case 'GET':
-                str += 'get';
+                name += 'get';
                 break;
             case 'POST':
-                str += 'add';
+                name += 'add';
                 break;
             case 'PUT':
-                str += 'update';
+                name += 'update';
                 break;
             case 'DELETE':
-                str += 'delete';
+                name += 'delete';
                 break;
             default:
                 return false;
         }
         const urlArray = request.url.split('/');
         if (urlArray.includes('users')) {
-            str += 'User';
+            name += 'User';
         }
         if (urlArray.includes('contacts')) {
-            str += 'Contact';
+            name += 'Contact';
         }
-        console.log(urlArray[urlArray.length - 1])
-        console.log(typeof (parseInt(urlArray[urlArray.length - 1])))
-        if ((typeof (parseInt(urlArray[urlArray.length - 1]))) !== 'number') {
-            str += 's';
+        if (isNaN((parseInt(urlArray[urlArray.length - 1]))) && type === 'GET') {
+            name += 's';
         }
-        return str;
+        let func = db[name];
+        if (!func) { return; }
+        const params = urlArray.filter(item => !isNaN((parseInt(item))));
+        if (request.body) {
+            params.push(request.body);
+        }
+        return {
+            func: func,
+            params: params
+        };
     }
-
 }
 
