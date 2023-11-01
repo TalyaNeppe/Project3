@@ -51,6 +51,23 @@ class DataBase {
         return false;
     }
 
+    getUserContactsStart(userid, start) {
+        const contacts = this.getContacts();
+        let found = [];
+        for (let contacL of contacts) {
+            if (contacL.userid == userid) {
+                const list = contacL.contactList;
+                for (let contact of list) {
+                    if (contact.name.startsWith(start)) {
+                        found.push(contact);
+                    }
+                }
+                return found;
+            }
+        }
+        return false;
+    }
+
     addUser(obj) {
         const username = obj.username;
         const password = obj.password;

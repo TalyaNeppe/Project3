@@ -25,6 +25,7 @@ function switchPage(target) {
         page.removeChild(page.children[0]);
     }
     page.appendChild(content.cloneNode(true));
+    // debugger;
     if (target === 'app') {
         let script = document.createElement('script');
         script.src = "./js/app.js";
@@ -38,12 +39,39 @@ function switchPage(target) {
         if (contact) {
             contact.remove();
         }
+        let signup = document.getElementById('signup-script');
+        if (signup) {
+            signup.remove();
+        }
     }
     else if (target==='login'){
         let script = document.createElement('script');
         script.src = "./js/login.js";
         script.id = 'login-script';
         document.body.appendChild(script);
+        let app = document.getElementById('app-script');
+        if (app) {
+            app.remove();
+        }
+        let contact = document.getElementById('contact-script');
+        if (contact) {
+            contact.remove();
+        }
+        let signup = document.getElementById('signup-script');
+        if (signup) {
+            signup.remove();
+        }
+    }
+    else if (target==='signup'){
+        let script = document.createElement('script');
+        script.src = "./js/signup.js";
+        script.id = 'signup-script';
+        document.body.appendChild(script);
+        // debugger;
+        let login = document.getElementById('login-script');
+        if (login) {
+            login.remove();
+        }
         let app = document.getElementById('app-script');
         if (app) {
             app.remove();
@@ -65,6 +93,10 @@ function switchPage(target) {
         let app = document.getElementById('app-script');
         if (app) {
             app.remove();
+        }
+        let signup = document.getElementById('signup-script');
+        if (signup) {
+            signup.remove();
         }
     }
 }
