@@ -19,9 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // check if request is to server or client
             if (request.status !== 0) {
                 // send request to client
-                console.log('there is a status in request')
-                console.log(request);
-                
+                console.log('there is a status in request');
+                const req = request;
+                setTimeout(() => {
+                    req.onload();
+                }, 3000)
             } else {
                 // send request to server
                 console.log('there is no status in request')
@@ -32,5 +34,5 @@ document.addEventListener('DOMContentLoaded', () => {
             network.requests.splice(0, 1);
         }
         // console.log('did network')
-    }, 1000);
+    }, 500);
 })
