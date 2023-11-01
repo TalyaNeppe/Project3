@@ -14,6 +14,7 @@ class Server {
 
     /* getting the function name */
     findFunction() {
+        debugger;
         console.log('did findFunction')
         const request = this.getCurrentRequest();
         if (!request) { return; }
@@ -61,8 +62,10 @@ class Server {
                         params.push(word);
                     }
                 })
+                let func = db[name];
+                if (!func) { return; }
                 return {
-                    func: func.name,
+                    func: name,
                     params: params
                 };
             }
@@ -74,13 +77,12 @@ class Server {
             params.push(request.body);
         }
         return {
-            func: func.name,
+            func: name,
             params: params
         };
     }
 
     buildResponse(obj) {
-        debugger;
         console.log('did buildResponse');
         const func = obj.func;
         const params = obj.params;
@@ -128,7 +130,7 @@ const server = new Server();
 document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         if (server.requests.length > 0) {
-            // debugger;
+            // 
             console.log('there is a request in server')
             server.buildResponse(server.findFunction());
         }
