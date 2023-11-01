@@ -39,9 +39,11 @@ const search = document.getElementById('search');
 const searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', () => {
     const searchResults = new FXMLHttpRequest();
-    searchResults.open("GET", `/api/users/contacts/?Start=${search.value}`)
+    searchResults.open("GET", `/api/users/${localStorage.getItem('currentUser')}/contacts/?Start=${search.value}`)
     searchResults.onload = function() {
         if (this.requestText) {
+            const list = document.getElementById('contacts-list');
+            list.innerHTML='';
             const contacts=JSON.parse(this.requestText);
             contacts.forEach(contact => {
                 let li=document.createElement('li');
