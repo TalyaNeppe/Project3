@@ -10,15 +10,11 @@ class FXMLHttpRequest{
         if (body) {
             this.body = body;
         }
-        // body? 
-        // this.request = {'type': type,'url': url,'body': body} 
-        // : 
-        // this.request = {'type': type,'url': url}
     }
 
     send() {
         network.addRequest(this);
     }
 
-    onload() {}
+    onload() {};
 }

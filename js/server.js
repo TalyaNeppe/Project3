@@ -109,5 +109,5 @@ document.addEventListener('DOMContentLoaded', () => {
             server.buildResponse(server.findFunction());
         }
         // console.log('did server')
-    }, 1000);
+    }, 500);
 })
