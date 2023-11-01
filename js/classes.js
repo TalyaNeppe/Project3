@@ -3,7 +3,7 @@ class User {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.phoneNumber = phone;
+        this.phone = phone;
         this.countContacts = 1;
     }
 }

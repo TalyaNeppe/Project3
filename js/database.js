@@ -38,10 +38,9 @@ class DataBase {
         const users = this.getUsers();
         if (!username || !password || !phone) { return; }
         let count = localStorage.getItem('countUsers') || 1;
-        users.push({ 'id': count, 'name': username, 'password': password, 'phone': phone, 'countContacts': 1 });
-
+        users.push(new User(username, password, phone, count));
         const contacts = this.getContacts();
-        contacts.push({ 'userid': count, 'contactList': [] })
+        contacts.push(new ContactsList(count));
 
         localStorage.setItem('users', JSON.stringify(users));
         localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -66,7 +65,7 @@ class DataBase {
         }
         for (let contactL of contacts) {
             if (contactL.userid === userid && user) {
-                contactL.contactList.push({ 'id': user.countContacts, 'name': name, 'phone': phone });
+                contactL.contactList.push(new Contact(user.countContacts, name, phone));
                 //update user.countContacts in db
                 user.countContacts++;
                 localStorage.setItem('users', JSON.stringify(users));
