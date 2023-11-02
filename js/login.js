@@ -24,6 +24,10 @@ btn.addEventListener('click', (event) => {
     const check = new FXMLHttpRequest();
     check.open('GET', `/api/users/?Username=${username}?Password=${password}`);
     check.onload = function () {
+        if (check.status==404){
+            alert(check.requestText);
+            return;
+        }
         const id = JSON.parse(check.requestText);
         if (id !== NaN) {
             localStorage.setItem('currentUser', id);

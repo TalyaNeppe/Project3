@@ -19,6 +19,10 @@ if (localStorage.getItem('currentContact') !== 'new') {
     const contactRequest = new FXMLHttpRequest();
     contactRequest.open('GET', `/api/users/${localStorage.getItem('currentUser')}/contacts/${localStorage.getItem('currentContact')}`);
     contactRequest.onload = function () {
+        if (check.status==404){
+            alert(check.requestText);
+            return;
+        }
         details = JSON.parse(this.requestText);
         nameLabel.value = details.name;
         phoneLabel.value = details.phone;
@@ -73,6 +77,10 @@ else {
         const requestUser = new FXMLHttpRequest();
         requestUser.open('GET', `/api/users/${userId}`);
         requestUser.onload = function () {
+            if (check.status==404){
+                alert(check.requestText);
+                return;
+            }
             user = JSON.parse(this.requestText);
             const updateRequest = new FXMLHttpRequest();
             updateRequest.open('POST', `/api/users/${userId}/contacts`, {

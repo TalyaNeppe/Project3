@@ -12,6 +12,7 @@ backbtn.addEventListener('click', (event) => {
 });
 
 const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
+// 0501234567/050-123-4567/(050) 123-4567
 
 let isPhoneValid = (phone) => {
     return phoneRegex.test(phone);
@@ -37,6 +38,10 @@ send.addEventListener('click', (event) => {
 
     check.open('POST', `/api/users`, new User(username, password, phone, localStorage.getItem('countUsers')));
     check.onload = function () {
+        if (check.status==404){
+            alert(check.requestText);
+            return;
+        }
         if (this.requestText !== '') {
             alert('You are signed in!');
             // switchPage('login');
