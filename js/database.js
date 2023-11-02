@@ -206,9 +206,9 @@ class DataBase {
     }
 
     refreshStorage() {
-        localStorage.setItem('users', '[]');
-        localStorage.setItem('contacts', '[]');
-        localStorage.setItem('countUsers', 1);
+        localStorage.setItem('users', '[{"id":"1","username":"Talya","password":"1234567","phone":"09327587","countContacts":4},{"id":"2","username":"Opal","password":"1234567","phone":"09327587","countContacts":4}]');
+        localStorage.setItem('contacts', '[{"userid":"1","contactList":[{"id":1,"name":"Bob","phone":050-987-6543},{"id":2,"name":"Avigail","phone":050-840-9802}]');
+        localStorage.setItem('countUsers', 3);
     }
 }
 

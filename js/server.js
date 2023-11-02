@@ -38,6 +38,9 @@ class Server {
             default:
                 return false;
         }
+        // if (this.notValidUrl(urlArray)) {
+        //     return false;
+        // }
         if (urlArray.includes('users')) {
             name += 'User';
         }
@@ -122,6 +125,39 @@ class Server {
 
         //remove request
         server.requests.splice(0, 1);
+    }
+
+    notValidUrl(urlArray) {
+        if(urlArray[0] !== 'api') {
+            return true;
+        }
+        urlArray.splice(0, 1);
+        let usersFound = false;
+        let contactsFound = false;
+        for (let i = 0; i < urlArray.length; i++) {
+            const word = urlArray[i];
+            if (word !== 'users' && word !== 'contacts' && word[0] !== '?' && isNaN(parseInt(word))) {
+                return true;
+            }
+            if (word === 'users') {
+                if (usersFound) {
+                    return true;
+                }
+                usersFound = true;
+            }
+            if (word === 'contacts') {
+                if (!usersFound || contactsFound) {
+                    return true;
+                }
+                contactsFound = true;
+            }
+            if (!isNaN(parseInt(word))) {
+                if(!isNaN(parseInt(urlArray[i+1]))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
