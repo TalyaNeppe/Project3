@@ -88,3 +88,9 @@ body{
     font-family: 'Sarala', sans-serif;
     color:#001524;
 }
+
+.center {
+    display: inline-block;
+    position: relative;
+    left: 35%;
+}

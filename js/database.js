@@ -224,7 +224,7 @@ class DataBase {
 
     refreshStorage() {
         localStorage.setItem('users', '[{"id":"1","username":"Talya","password":"1234567","phone":"09327587","countContacts":4},{"id":"2","username":"Opal","password":"1234567","phone":"09327587","countContacts":4}]');
-        const contacts = [{userid: 1, contactList: [{id: 1, name: 'Bob', phone: '050-987-6543'}, {id: 2, name: 'Avigail', phone: '050-840-9802'}]}];
+        const contacts = [{userid: 1, contactList: [{id: 1, name: 'Bob', phone: '050-987-6543'}, {id: 2, name: 'Avigail', phone: '050-840-9802'}]}, {userid: 2, contactList: []}];
         localStorage.setItem('contacts', JSON.stringify(contacts));
         localStorage.setItem('countUsers', 3);
     }

@@ -20,7 +20,7 @@ requestUser.onload = function () {
         console.log(this.requestText);
         const contacts = JSON.parse(this.requestText);
         if (contacts.length < 1) {
-            list.innerHTML = 'No contacts...';
+            list.innerHTML = '<span class="center">No contacts...</span>';
         } else {
             console.log('did else..')
             contacts.forEach(contact => {
@@ -62,7 +62,7 @@ searchBtn.addEventListener('click', () => {
             list.innerHTML = '';
             const contacts = JSON.parse(this.requestText);
             if (contacts.length < 1) {
-                list.innerHTML = 'No matching contacts...';
+                list.innerHTML = '<span class="center">No matching contacts...</span>';
             } else {
                 contacts.forEach(contact => {
                     let li = document.createElement('li');
