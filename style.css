@@ -13,6 +13,7 @@ h1{
 
 li:hover{
     cursor: pointer;
+    background-color: rgb(224, 224, 224);
 }
 
 button{
@@ -25,6 +26,16 @@ button{
 
 button:hover{
     color:white;
+}
+
+#contact-content{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#delete-btn {
+    position: relative;
+    left: 10%;
 }
 
 button:active{
