@@ -13,8 +13,8 @@ requestUser.onload = function () {
     console.log(`/api/users/${userId}/contacts`)
     requestContacts.open('GET', `/api/users/${userId}/contacts`);
     requestContacts.onload = function () {
-        if (check.status==404){
-            alert(check.requestText);
+        if (this.status==404){
+            alert(this.requestText);
             return;
         }
         console.log(this.requestText);
@@ -53,8 +53,8 @@ searchBtn.addEventListener('click', () => {
     const searchResults = new FXMLHttpRequest();
     searchResults.open("GET", `/api/users/${localStorage.getItem('currentUser')}/contacts/?Start=${search.value}`)
     searchResults.onload = function () {
-        if (check.status==404){
-            alert(check.requestText);
+        if (this.status==404){
+            alert(this.requestText);
             return;
         }
         if (this.requestText) {

@@ -38,8 +38,8 @@ send.addEventListener('click', (event) => {
 
     check.open('POST', `/api/users`, new User(username, password, phone, localStorage.getItem('countUsers')));
     check.onload = function () {
-        if (check.status==404){
-            alert(check.requestText);
+        if (this.status==404){
+            alert(this.requestText);
             return;
         }
         if (this.requestText !== '') {

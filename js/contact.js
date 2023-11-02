@@ -8,7 +8,9 @@ back.addEventListener('click', () => {
     backToList();
 });
 
+
 if (localStorage.getItem('currentContact') !== 'new') {
+    const userId = localStorage.getItem('currentUser');
     console.log('not new')
     let details;
     const nameLabel = document.getElementById('name-label');
@@ -16,11 +18,25 @@ if (localStorage.getItem('currentContact') !== 'new') {
     phoneLabel.disabled = true;
     nameLabel.disabled = true;
 
+    //add username 
+    const requestUser = new FXMLHttpRequest();
+    requestUser.open('GET', `/api/users/${userId}`);
+    requestUser.onload = function () {
+        user = JSON.parse(this.requestText);
+        const heading = document.getElementById('contact-heading');
+        if (this.status==404){
+            alert(this.requestText);
+            return;
+        }
+        heading.textContent = user.username + "'s Contact";
+    }
+    requestUser.send();
+
     const contactRequest = new FXMLHttpRequest();
     contactRequest.open('GET', `/api/users/${localStorage.getItem('currentUser')}/contacts/${localStorage.getItem('currentContact')}`);
     contactRequest.onload = function () {
-        if (check.status==404){
-            alert(check.requestText);
+        if (this.status == 404) {
+            alert(this.requestText);
             return;
         }
         details = JSON.parse(this.requestText);
@@ -77,8 +93,8 @@ else {
         const requestUser = new FXMLHttpRequest();
         requestUser.open('GET', `/api/users/${userId}`);
         requestUser.onload = function () {
-            if (check.status==404){
-                alert(check.requestText);
+            if (this.status == 404) {
+                alert(this.requestText);
                 return;
             }
             user = JSON.parse(this.requestText);
