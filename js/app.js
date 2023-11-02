@@ -14,14 +14,21 @@ requestUser.onload = function () {
     requestContacts.open('GET', `/api/users/${userId}/contacts`);
     requestContacts.onload = function () {
         console.log(this.requestText);
-        const contacts=JSON.parse(this.requestText);
-        contacts.forEach(contact => {
-            let li=document.createElement('li');
-            li.style.borderBottom='1px solid black';
-            li.innerHTML='<label>Name: '+contact.name+'</label><br><label>Phone number: '+contact.phone+'</label><br><br>'
-            list.appendChild(li);
-        });
-        
+        const contacts = JSON.parse(this.requestText);
+        if (contacts.length < 1) {
+            list.innerHTML = 'No contacts...';
+        } else {
+            console.log('did else..')
+            contacts.forEach(contact => {
+                let li = document.createElement('li');
+                li.style.borderBottom = '1px solid black';
+                li.innerHTML = '<label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                li.addEventListener('click', () => {
+                    localStorage.setItem('currentContact', contact.id);
+                });
+                list.appendChild(li);
+            });
+        }
     }
     requestContacts.send();
 }
@@ -40,20 +47,30 @@ const searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', () => {
     const searchResults = new FXMLHttpRequest();
     searchResults.open("GET", `/api/users/${localStorage.getItem('currentUser')}/contacts/?Start=${search.value}`)
-    searchResults.onload = function() {
+    searchResults.onload = function () {
         if (this.requestText) {
             const list = document.getElementById('contacts-list');
-            list.innerHTML='';
-            const contacts=JSON.parse(this.requestText);
-            contacts.forEach(contact => {
-                let li=document.createElement('li');
-                li.style.borderBottom='1px solid black';
-                li.innerHTML='<label>Name: '+contact.name+'</label><br><label>Phone number: '+contact.phone+'</label><br><br>'
-                list.appendChild(li);
-            });
-        } else {
-            console.log('contacts not found');
+            list.innerHTML = '';
+            const contacts = JSON.parse(this.requestText);
+            if (contacts.length < 1) {
+                list.innerHTML = 'No matching contacts...';
+            } else {
+                contacts.forEach(contact => {
+                    let li = document.createElement('li');
+                    li.style.borderBottom = '1px solid black';
+                    li.innerHTML = '<br><br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                    li.addEventListener('click', () => {
+                        localStorage.setItem('currentContact', contact.id);
+                    });
+                    list.appendChild(li);
+                });
+            }
         }
     };
     searchResults.send();
 });
+
+const addn = document.getElementById('addContact');
+addn.addEventListener('click', () => {
+    localStorage.setItem('currentContact', 'new');
+})

@@ -14,7 +14,7 @@ class Server {
 
     /* getting the function name */
     findFunction() {
-        debugger;
+        // debugger;
         console.log('did findFunction')
         const request = this.getCurrentRequest();
         if (!request) { return; }
