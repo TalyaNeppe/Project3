@@ -20,7 +20,7 @@ btn.addEventListener('click', (event) => {
     check.onload = function () {
         const id = JSON.parse(check.requestText);
         if (id !== NaN) {
-            localStorage.setItem('currentUser', JSON.stringify(id));
+            localStorage.setItem('currentUser', id);
             switchPage('app');
         } else {
             alert('Incorrect password/username');

@@ -45,6 +45,7 @@ class Server {
             name += 'Contact';
         }
         let params = [];
+        params = urlArray.filter(item => !isNaN((parseInt(item))));
         if (isNaN((parseInt(urlArray[urlArray.length - 1]))) && type === 'GET') {
             name += 's';
             if (urlArray[urlArray.length - 1][0] == '?') {
@@ -72,7 +73,6 @@ class Server {
         }
         let func = db[name];
         if (!func) { return; }
-        params = urlArray.filter(item => !isNaN((parseInt(item))));
         if (request.body) {
             params.push(request.body);
         }

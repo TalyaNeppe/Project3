@@ -31,6 +31,7 @@ class DataBase {
     }
 
     getUser(userid) {
+        debugger;
         const users = this.getUsers();
         userid = String(userid);
         for (let user of users) {
@@ -65,7 +66,7 @@ class DataBase {
                 return found;
             }
         }
-        return false;
+        return [];
     }
 
     addUser(obj) {
