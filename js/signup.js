@@ -29,7 +29,8 @@ send.addEventListener('click', (event) => {
     check.onload = function () {
         if (this.requestText !== '') {
             alert('You are signed in!');
-            switchPage('login');
+            // switchPage('login');
+            location.reload();
         } else {
             alert('something went wrong');
         }
