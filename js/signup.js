@@ -25,7 +25,7 @@ send.addEventListener('click', (event) => {
     const password = document.getElementById('signup-password').value; //getting the password
     const phone = document.getElementById('signup-phone').value;
     if (!isPasswordInRightLength(password)) {
-        alert('Your password should be over 6 charecters long');
+        alert('Your password should be over 6 characters long');
         return;
     }
 

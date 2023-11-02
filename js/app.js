@@ -26,7 +26,7 @@ requestUser.onload = function () {
             contacts.forEach(contact => {
                 let li = document.createElement('li');
                 li.style.borderBottom = '1px solid black';
-                li.innerHTML = '<br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                li.innerHTML = '<br><label class="li-label">Name: ' + contact.name + '</label><br class="li-label"><label class="li-label">Phone number: ' + contact.phone + '</label><br><br>'
                 li.addEventListener('click', () => {
                     localStorage.setItem('currentContact', contact.id);
                     location.reload();
@@ -67,7 +67,7 @@ searchBtn.addEventListener('click', () => {
                 contacts.forEach(contact => {
                     let li = document.createElement('li');
                     li.style.borderBottom = '1px solid black';
-                    li.innerHTML = '<br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                    li.innerHTML = '<br><label class="li-label">Name: ' + contact.name + '</label><br class="li-label"><label class="li-label">Phone number: ' + contact.phone + '</label><br><br>'
                     li.addEventListener('click', () => {
                         localStorage.setItem('currentContact', contact.id);
                         location.reload();

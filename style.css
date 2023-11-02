@@ -33,7 +33,7 @@ button:active{
 
 legend{
     color:#15616d;
-    font-size: larger;
+    font-size: 30px;
     font-weight: bold;
     width: auto;
     margin-left: auto;
@@ -57,7 +57,11 @@ fieldset{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    height: 350px;
+    height: 380px;
+}
+
+.li-label:hover{
+    cursor: pointer;
 }
 
 input:focus{
@@ -67,4 +71,5 @@ input:focus{
 body{
     background-color: #fdf7f8;
     font-family: 'Sarala', sans-serif;
+    color:#001524;
 }
