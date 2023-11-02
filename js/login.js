@@ -1,7 +1,7 @@
 
 /* checks if the password is 6 chars long */
 let isPasswordRightLength = (password) => {
-    return password.length <6;
+    return password.length >6;
 }
 
 const signup = document.getElementById('signup-btn');
@@ -24,11 +24,11 @@ btn.addEventListener('click', (event) => {
     const check = new FXMLHttpRequest();
     check.open('GET', `/api/users/?Username=${username}?Password=${password}`);
     check.onload = function () {
-        if (check.status==404){
-            alert(check.requestText);
+        if (this.status==404){
+            alert(this.requestText);
             return;
         }
-        const id = JSON.parse(check.requestText);
+        const id = JSON.parse(this.requestText);
         if (id !== NaN) {
             localStorage.setItem('currentUser', id);
             switchPage('app');
