@@ -31,7 +31,7 @@ class DataBase {
     }
 
     getUser(userid) {
-        debugger;
+        // debugger;
         const users = this.getUsers();
         userid = String(userid);
         for (let user of users) {
