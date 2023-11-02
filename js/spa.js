@@ -25,7 +25,6 @@ function switchPage(target) {
         page.removeChild(page.children[0]);
     }
     page.appendChild(content.cloneNode(true));
-    // debugger;
     if (target === 'app') {
         let script = document.createElement('script');
         script.src = "./js/app.js";
@@ -67,7 +66,6 @@ function switchPage(target) {
         script.src = "./js/signup.js";
         script.id = 'signup-script';
         document.body.appendChild(script);
-        // debugger;
         let login = document.getElementById('login-script');
         if (login) {
             login.remove();
