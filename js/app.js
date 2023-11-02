@@ -10,19 +10,16 @@ requestUser.onload = function () {
     heading.textContent = user.username + "'s Contacts";
     const list = document.getElementById('contacts-list');
     const requestContacts = new FXMLHttpRequest();
-    console.log(`/api/users/${userId}/contacts`)
     requestContacts.open('GET', `/api/users/${userId}/contacts`);
     requestContacts.onload = function () {
         if (this.status==404){
             alert(this.requestText);
             return;
         }
-        console.log(this.requestText);
         const contacts = JSON.parse(this.requestText);
         if (contacts.length < 1) {
             list.innerHTML = '<span class="center">No contacts...</span>';
         } else {
-            console.log('did else..')
             contacts.forEach(contact => {
                 let li = document.createElement('li');
                 li.style.borderBottom = '1px solid black';

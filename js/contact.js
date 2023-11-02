@@ -16,7 +16,6 @@ let isPhoneValid = (phone) => {
 
 if (localStorage.getItem('currentContact') !== 'new') {
     const userId = localStorage.getItem('currentUser');
-    console.log('not new')
     let details;
     const nameLabel = document.getElementById('name-label');
     const phoneLabel = document.getElementById('phone-label');

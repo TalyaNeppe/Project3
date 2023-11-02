@@ -28,7 +28,6 @@ class DataBase {
     }
 
     getUserContact(userid, contactid) {
-        // debugger;
         userid = String(userid);
         const contacts = this.getUserContacts(userid);
         for (let contact of contacts) {
@@ -40,7 +39,6 @@ class DataBase {
     }
 
     getUser(userid) {
-        // debugger;
         const users = this.getUsers();
         userid = String(userid);
         for (let user of users) {
@@ -105,7 +103,6 @@ class DataBase {
     }
 
     addUserContact(userid, obj) {
-        debugger;
         const name = obj.name;
         const phone = obj.phone;
         if (!name || !phone) { return; }
@@ -202,7 +199,6 @@ class DataBase {
     }
 
     updateUserContact(userid, contactid, obj) {
-        debugger;
         const contacts = this.getContacts();
         const name = obj.name;
         const phone = obj.phone;
