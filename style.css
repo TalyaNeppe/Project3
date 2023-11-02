@@ -10,3 +10,61 @@ ul{
 h1{
     text-align: center;
 }
+
+li:hover{
+    cursor: pointer;
+}
+
+button{
+    background-color: #15616d;
+    color:#e1c5c6;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 90px;
+}
+
+button:hover{
+    color:white;
+}
+
+button:active{
+    transform: translateY(4px);
+}
+
+legend{
+    color:#15616d;
+    font-size: larger;
+    font-weight: bold;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input{
+    background-color: #f8e6e8;
+    color:#001524;
+    border-radius: 8px;
+
+}
+
+.forms{
+    font-size: small;
+    color:rgb(144, 140, 140);
+}
+
+fieldset{
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+}
+
+input:focus{
+    border: 4.5px solid #c78283;
+}
+
+body{
+    background-color: #fdf7f8;
+    font-family: 'Sarala', sans-serif;
+}
