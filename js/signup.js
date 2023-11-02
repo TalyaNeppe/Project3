@@ -1,4 +1,3 @@
-
 /* checks if the password is 6 chars long */
 let isPasswordInRightLength = (password) => {
     return password.length === 6;
