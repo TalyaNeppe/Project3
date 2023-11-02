@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const req = request;
                 setTimeout(() => {
                     req.onload();
-                }, 500)
+                }, (Math.random()* 301 + 400))
             } else {
                 // send request to server
                 console.log('there is no status in request')
