@@ -8,6 +8,11 @@ back.addEventListener('click', () => {
     backToList();
 });
 
+let isPhoneValid = (phone) => {
+    const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
+    // 0501234567/050-123-4567/(050) 123-4567
+    return phoneRegex.test(phone);
+}
 
 if (localStorage.getItem('currentContact') !== 'new') {
     const userId = localStorage.getItem('currentUser');
@@ -63,6 +68,14 @@ if (localStorage.getItem('currentContact') !== 'new') {
 
     const commitBtn = document.getElementById('commit-btn');
     commitBtn.addEventListener('click', () => {
+        if(phoneLabel.disabled) {
+            alert("You didn't make any changes");
+            return;
+        }
+        if (!isPhoneValid(phoneLabel.value)){
+            alert('Your phone number is not valid');
+            return;
+        }
         const updateRequest = new FXMLHttpRequest();
         updateRequest.open('PUT', `/api/users/${localStorage.getItem('currentUser')}/contacts/${localStorage.getItem('currentContact')}`, {
             id: localStorage.getItem('currentContact'),
@@ -77,11 +90,6 @@ if (localStorage.getItem('currentContact') !== 'new') {
 }
 
 else {
-    let isPhoneValid = (phone) => {
-        const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
-        // 0501234567/050-123-4567/(050) 123-4567
-        return phoneRegex.test(phone);
-    }
     const nameLabel = document.getElementById('name-label');
     const phoneLabel = document.getElementById('phone-label');
     phoneLabel.disabled = false;
