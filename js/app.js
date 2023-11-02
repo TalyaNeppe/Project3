@@ -22,9 +22,10 @@ requestUser.onload = function () {
             contacts.forEach(contact => {
                 let li = document.createElement('li');
                 li.style.borderBottom = '1px solid black';
-                li.innerHTML = '<label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                li.innerHTML = '<br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
                 li.addEventListener('click', () => {
                     localStorage.setItem('currentContact', contact.id);
+                    location.reload();
                 });
                 list.appendChild(li);
             });
@@ -58,9 +59,10 @@ searchBtn.addEventListener('click', () => {
                 contacts.forEach(contact => {
                     let li = document.createElement('li');
                     li.style.borderBottom = '1px solid black';
-                    li.innerHTML = '<br><br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
+                    li.innerHTML = '<br><label>Name: ' + contact.name + '</label><br><label>Phone number: ' + contact.phone + '</label><br><br>'
                     li.addEventListener('click', () => {
                         localStorage.setItem('currentContact', contact.id);
+                        location.reload();
                     });
                     list.appendChild(li);
                 });
@@ -73,4 +75,5 @@ searchBtn.addEventListener('click', () => {
 const addn = document.getElementById('addContact');
 addn.addEventListener('click', () => {
     localStorage.setItem('currentContact', 'new');
+    location.reload();
 })

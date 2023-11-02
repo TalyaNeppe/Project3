@@ -9,11 +9,19 @@ class DataBase {
     }
 
     getUserContacts(userid) {
-        const contacts = this.getContacts().sort();
+        const contacts = this.getContacts();
         userid = String(userid);
         for (let contactL of contacts) {
             if (contactL.userid === userid) {
-                return contactL.contactList;
+                return contactL.contactList.sort(function (a, b) {
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    return 0;
+                });;
             }
         }
         return false;
@@ -63,7 +71,15 @@ class DataBase {
                         found.push(contact);
                     }
                 }
-                return found;
+                return found.sort(function (a, b) {
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    return 0;
+                });;
             }
         }
         return [];

@@ -1,8 +1,15 @@
 
 /* checks if the password is 6 chars long */
 let isPasswordRightLength = (password) => {
-    return password.length === 6;
+    return password.length <6;
 }
+
+const signup = document.getElementById('signup-btn');
+signup.addEventListener('click', (event) => {
+    event.preventDefault();
+    switchPage('signup');
+    console.log('signup')
+});
 
 const btn = document.getElementById('login-btn'); //getting the button
 btn.addEventListener('click', (event) => {
@@ -10,7 +17,7 @@ btn.addEventListener('click', (event) => {
     const username = document.getElementById('login-username').value; //getting the username
     const password = document.getElementById('login-password').value; //getting the password
     if (!isPasswordRightLength(password)) {
-        alert('Your password should be 6 charecters long');
+        alert('Your password should be over 6 charecters long');
         return;
     }
 
@@ -25,12 +32,5 @@ btn.addEventListener('click', (event) => {
             alert('Incorrect password/username');
         }
     };
-    check.send()
-});
-
-const signup = document.getElementById('signup-btn');
-signup.addEventListener('click', (event) => {
-    event.preventDefault();
-    switchPage('signup');
-    console.log('signup')
+    check.send();
 });
