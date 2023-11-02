@@ -1,6 +1,6 @@
 /* checks if the password is 6 chars long */
 let isPasswordInRightLength = (password) => {
-    return password.length === 6;
+    return password.length >6;
 }
 
 const backbtn = document.getElementById('signup-back');
@@ -11,6 +11,12 @@ backbtn.addEventListener('click', (event) => {
     location.reload();
 });
 
+const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
+
+let isPhoneValid = (phone) => {
+    return phoneRegex.test(phone);
+}
+
 const send = document.getElementById('signup-btn');
 send.addEventListener('click', (event) => {
     event.preventDefault();
@@ -18,7 +24,12 @@ send.addEventListener('click', (event) => {
     const password = document.getElementById('signup-password').value; //getting the password
     const phone = document.getElementById('signup-phone').value;
     if (!isPasswordInRightLength(password)) {
-        alert('Your password should be 6 charecters long');
+        alert('Your password should be over 6 charecters long');
+        return;
+    }
+
+    if (!isPhoneValid(phone)) {
+        alert('Your phone number is not valid');
         return;
     }
 
