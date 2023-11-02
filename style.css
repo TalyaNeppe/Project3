@@ -75,6 +75,10 @@ fieldset{
     cursor: pointer;
 }
 
+.li-label{
+    padding-left: 10px;
+}
+
 input:focus{
     border: 4.5px solid #c78283;
 }
