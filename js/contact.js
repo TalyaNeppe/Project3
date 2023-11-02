@@ -77,6 +77,11 @@ if (localStorage.getItem('currentContact') !== 'new') {
 }
 
 else {
+    let isPhoneValid = (phone) => {
+        const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
+        // 0501234567/050-123-4567/(050) 123-4567
+        return phoneRegex.test(phone);
+    }
     const nameLabel = document.getElementById('name-label');
     const phoneLabel = document.getElementById('phone-label');
     phoneLabel.disabled = false;
@@ -86,6 +91,7 @@ else {
     const deleteBtn = document.getElementById('delete-btn');
     deleteBtn.style.display = 'none';
     const commitBtn = document.getElementById('commit-btn');
+    commitBtn.classList.add('center');
     commitBtn.addEventListener('click', () => {
         const userId = localStorage.getItem('currentUser');
         let user;
@@ -98,6 +104,14 @@ else {
                 return;
             }
             user = JSON.parse(this.requestText);
+            if (nameLabel.value==''||phoneLabel.value==''){
+                alert('Both fields are required');
+                return;
+            }
+            if (!isPhoneValid(phoneLabel.value)){
+                alert('Your phone number is not valid');
+                return;
+            }
             const updateRequest = new FXMLHttpRequest();
             updateRequest.open('POST', `/api/users/${userId}/contacts`, {
                 id: user.countContacts,

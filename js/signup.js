@@ -11,10 +11,9 @@ backbtn.addEventListener('click', (event) => {
     location.reload();
 });
 
-const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
-// 0501234567/050-123-4567/(050) 123-4567
-
 let isPhoneValid = (phone) => {
+    const phoneRegex=/050\d{7}$|(050-|\(050\)\s)\d{3}-\d{4}/;
+    // 0501234567/050-123-4567/(050) 123-4567
     return phoneRegex.test(phone);
 }
 
