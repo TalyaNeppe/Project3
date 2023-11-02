@@ -7,8 +7,9 @@ let isPasswordInRightLength = (password) => {
 const backbtn = document.getElementById('signup-back');
 backbtn.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log('hello');
-    switchPage('login');
+    // console.log('hello');
+    // switchPage('login');
+    location.reload();
 });
 
 const send = document.getElementById('signup-btn');
